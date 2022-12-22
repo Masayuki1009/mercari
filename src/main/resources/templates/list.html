@@ -37,7 +37,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html">Rakus Items</a>
+			<a class="navbar-brand" th:href="@{/show}">Rakus Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -140,14 +140,15 @@
 						<td class="item-condition">3</td>
 					</tr>
 					<tr th:each="item : ${itemList}">
-						<td class="item-name" th:text=${item.name}><a href="./detail.html">Razer
-								BlackWidow Chroma Keyboard</a></td>
-						<td class="item-price" th:text=${item.price}>52.0</td>
-						<td class="item-category" th:text=${item.category}><a href="">Electronics</a> / <a
+						<td class="item-name">
+						<a th:href="@{/show/detail?id=} + ${item.id}" th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a>
+						</td>
+						<td class="item-price" th:text="${item.price}">52.0</td>
+						<td class="item-category" th:text="${item.category}"><a href="">Electronics</a> / <a
 							href="">Computers &amp; Tablets</a> / <a href="">Components
 								&amp; Parts</a></td>
-						<td class="item-brand" th:text=${item.brand}><a href="">Razer</a></td>
-						<td class="item-condition" th:text=${item.condition}>3</td>
+						<td class="item-brand" th:text="${item.brand}"><a href="">Razer</a></td>
+						<td class="item-condition" th:text="${item.condition}">3</td>
 					</tr>
 				</tbody>
 			</table>
