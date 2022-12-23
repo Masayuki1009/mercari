@@ -129,16 +129,6 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="item-name"><a href="./detail.html">Razer
-								BlackWidow Chroma Keyboard</a></td>
-						<td class="item-price">52.0</td>
-						<td class="item-category"><a href="">Electronics</a> / <a
-							href="">Computers &amp; Tablets</a> / <a href="">Components
-								&amp; Parts</a></td>
-						<td class="item-brand"><a href="">Razer</a></td>
-						<td class="item-condition">3</td>
-					</tr>
 					<tr th:each="item : ${itemList}">
 						<td class="item-name">
 						<a th:href="@{/show/detail?id=} + ${item.id}" th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a>
