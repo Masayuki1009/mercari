@@ -70,7 +70,7 @@ public class AddNewItemController {
 			boolean isCatgeoryErrored = result.hasFieldErrors("category");
 			// エラーが発生している場合、エラーメッセージを表示
 			if (isCatgeoryErrored == true) {
-				model.addAttribute("categoryError", "categoryを選択して下さい");
+				model.addAttribute("categoryError", "categoryの選択は必須です");
 			}
 			return index(model, form);
 		}
