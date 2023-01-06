@@ -4,8 +4,6 @@ import org.hibernate.validator.constraints.Range;
 
 import jakarta.validation.constraints.NotBlank;
 
-//import jakarta.validation.constraints.NotBlank;
-//import jakarta.validation.constraints.NotEmpty;
 
 /**
  * 追加するアイテムの情報を格納するフォーム.
