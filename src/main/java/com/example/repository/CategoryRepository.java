@@ -61,4 +61,31 @@ public class CategoryRepository {
 		List<Category> categoryList = template.query(sql, param, CATEGORY_ROW_MAPPER);
 		return categoryList;
 	}
+	
+	/**
+	 * 大カテゴリー名と一致する大カテゴリーの情報を取得する.
+	 * 
+	 * @param bigCategoryName 大カテゴリー名
+	 * @return 大カテゴリー
+	 */
+	public Category findBigCategoryIdByName(String bigCategoryName) {
+		String sql = "SELECT id, parent, name, name_all FROM category WHERE name = :name AND parent IS NULL AND name_all IS NULL;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", bigCategoryName);
+		Category bigCategory = template.queryForObject(sql, param, CATEGORY_ROW_MAPPER);
+		return bigCategory;
+	}
+	
+	/**
+	 * 引数の大カテゴリーのidをparentカラムに持ち、かつ引数の中カテゴリー名と一致する中カテゴリーの情報を取得する.
+	 * 
+	 * @param bigCategoryId 大カテゴリーid
+	 * @param mediumCategoryName 中カテゴリーの名前
+	 * @return 中カテゴリー
+	 */
+	public Category findMediumCategoryIdByName(Integer bigCategoryId, String mediumCategoryName) {
+		String sql = "SELECT id, parent, name, name_all FROM category WHERE name = :name AND parent = :parent AND name_all IS NULL;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("name", mediumCategoryName).addValue("parent", bigCategoryId);
+		Category mediumCategory = template.queryForObject(sql, param, CATEGORY_ROW_MAPPER);
+		return mediumCategory;
+	}
 }

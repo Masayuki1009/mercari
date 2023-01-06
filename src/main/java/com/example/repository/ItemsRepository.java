@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import com.example.domain.EditItem;
 import com.example.domain.Items;
 
 /**
@@ -51,6 +52,17 @@ public class ItemsRepository {
 		SqlParameterSource param = new MapSqlParameterSource().addValue("i.id", id);
 		Items item = template.queryForObject(sql, param, ITEM_ROW_MAPPER);
 		return item;
+	}
+	
+	/**
+	 * idが一致するレコードを引数のeditItemの内容に更新する.
+	 * 
+	 * @param editItem editItem
+	 */
+	public void update(EditItem editItem) {
+		SqlParameterSource param = new BeanPropertySqlParameterSource(editItem);
+		String sql = "UPDATE items SET name = :name, condition = :condition, category = :category, brand = :brand, price = :price, shipping = :shipping, description = :description WHERE id = :id;";
+		template.update(sql, param);
 	}
 
 }
