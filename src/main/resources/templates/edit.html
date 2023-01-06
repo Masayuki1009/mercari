@@ -53,11 +53,8 @@
           <label for="inputName" class="col-sm-2 control-label">name</label>
           <div class="col-sm-8">
             <input type="text" name="name" class="form-control" id="inputName" th:value="${item.name}"/>
+            <span class="text-danger" th:text="${nameError}">error:may not be empty</span>
           </div>
-          <label for="category" class="col-sm-2 control-label"></label>
-        <div class="col-sm-8">
-          <span class="text-danger" th:text="${nameError}">error:may not be empty</span>
-        </div>
         </div>
         
        
@@ -66,10 +63,8 @@
           <label for="price" class="col-sm-2 control-label">price</label>
           <div class="col-sm-8">
             <input type="text" class="form-control" id="price" th:value="${item.price}" name="price"/>
+            <span class="text-danger" th:text="${priceError}">error:may not be empty</span>
           </div>
-          <div class="col-sm-8">
-          <span class="text-danger" th:text="${priceError}">error:may not be empty</span>
-        </div>
         </div>
         <!-- category -->
         <div class="form-group">
@@ -118,10 +113,8 @@
             >parentCategory1
             </option>
             </select>
+            <span class="text-danger" th:text="${categoryError}">error:may not be empty</span>
           </div>
-          <div class="col-sm-8">
-          <span class="text-danger" th:text="${categoryError}">error:may not be empty</span>
-        </div>
         </div>
         <!-- brand -->
         <div class="form-group">
@@ -150,10 +143,8 @@
           <label for="description" class="col-sm-2 control-label">description</label>
           <div class="col-sm-8">
             <textarea name="description" id="description" class="form-control" rows="5" th:text="${item.description}"></textarea>
+            <span class="text-danger" th:text="${descriptionError}">error:may not be empty</span>
           </div>
-          <div class="col-sm-8">
-          <span class="text-danger" th:text="${descriptionError}">error:may not be empty</span>
-        </div>
         </div>
         <!-- submit button -->
         <div class="form-group">
