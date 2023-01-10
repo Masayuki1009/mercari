@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -49,8 +50,10 @@ public class EditItemController {
 	 * @param model model
 	 * @return 編集画面
 	 */
-	@GetMapping("")
-	public String index(Integer id, Model model) {
+	//商品詳細画面に戻る際、editする予定だった商品の詳細ページ画面に戻れるよう、currentPageを保持
+	@GetMapping("/{id}/{currentPage}")
+	public String index(@PathVariable("id") Integer id,@PathVariable("currentPage") Integer currentPage, Model model) {
+		model.addAttribute("currentPage", currentPage);
 		Items item = showItemDetailService.showItemDetail(id);
 		model.addAttribute("item", item);
 		String[] category = item.getCategory().split("/", 0);
@@ -74,6 +77,7 @@ public class EditItemController {
 		// 編集ページ遷移時の商品の小カテゴリー(th:selectedで初期値として設定)
 		model.addAttribute("smallCategory", category[2]);
 
+		
 		return "edit";
 	}
 
@@ -86,8 +90,9 @@ public class EditItemController {
 	 * @param id id
 	 * @return 商品一覧ページ
 	 */
-	@PostMapping("/submit")
-	public String submit(@Validated EditItemForm form, BindingResult result, Model model, Integer id) {
+	//編集失敗後に商品詳細ページに戻る際、editする予定だった商品の詳細画面に戻れるよう、currentPageを保持
+	@PostMapping("/submit/{id}/{currentPage}")
+	public String submit(@Validated EditItemForm form, BindingResult result, Model model, @PathVariable("id") Integer id,@PathVariable("currentPage") Integer currentPage) {
 		if (result.hasErrors()) {
 			// 各項目にてエラーが発生しているかどうかを確認する
 			boolean isNameErrored = result.hasFieldErrors("name");
@@ -107,7 +112,7 @@ public class EditItemController {
 			if (isDescriptionErrored == true) {
 				model.addAttribute("descriptionError", "descriptionの選択は必須です");
 			}
-			return index(id, model);
+			return index(id, currentPage, model);
 		}
 		Items item = showItemDetailService.showItemDetail(id);
 		EditItem edittedItem = new EditItem();

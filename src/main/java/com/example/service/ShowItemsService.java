@@ -26,8 +26,17 @@ public class ShowItemsService {
 	 * 
 	 * @return item 30件
 	 */
-	public List<Items> showItemList() {
-		return repository.findAll();
+	public List<Items> showItemList(Integer offsetPoint) {
+		return repository.findAll(offsetPoint);
+	}
+	
+	/**
+	 * itemsテーブルの商品数の結果を返す.
+	 * 
+	 * @return itemsテーブルの商品数の合計
+	 */
+	public Integer getItemsCount() {
+		return repository.findItemsCount();
 	}
 
 }

@@ -54,7 +54,7 @@
 
 	<!-- details -->
 	<div class="container">
-		<a type="button" class="btn btn-default" th:href="@{/show}"><i
+		<a type="button" class="btn btn-default" th:href="@{/show?currentPage=} + ${currentPage}"><i
 			class="fa fa-reply"></i> back</a>
 		<h2>Details</h2>
 		<div id="details">
@@ -95,7 +95,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<a type="button" class="btn btn-default" th:href="@{/edit?id=} + ${item.id}"><i
+			<a type="button" class="btn btn-default" th:href="@{/edit/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}"><i
 				class="fa fa-pencil-square-o"></i>&nbsp;edit</a>
 		</div>
 	</div>

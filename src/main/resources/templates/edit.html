@@ -42,11 +42,11 @@
 
   <!-- details -->
   <div id="input-main" class="container">
-    <a type="button" class="btn btn-default" th:href="@{/show/detail?id=} + ${item.id}" th:object="${editItemForm}"><i class="fa fa-reply"></i> back</a>
+    <a type="button" class="btn btn-default" th:href="@{/show/detail/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}" th:object="${editItemForm}"><i class="fa fa-reply"></i> back</a>
     <h2>Edit</h2>
 
     <!-- edit form -->
-    <form action="#" method="POST" class="form-horizontal" th:action="@{/edit/submit?id=} + ${item.id}">
+    <form action="#" method="POST" class="form-horizontal" th:action="@{/edit/submit/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}">
     
         <!-- name -->
         <div class="form-group">
