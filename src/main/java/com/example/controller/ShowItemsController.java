@@ -1,5 +1,7 @@
 package com.example.controller;
 
+
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +12,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.domain.Category;
 import com.example.domain.Items;
+import com.example.form.SearchForm;
+import com.example.service.ShowCategoryService;
 import com.example.service.ShowItemDetailService;
 import com.example.service.ShowItemsService;
 
@@ -29,6 +34,9 @@ public class ShowItemsController {
 
 	@Autowired
 	ShowItemDetailService showItemDetailService;
+	
+	@Autowired
+	ShowCategoryService showCategoryService;
 
 	/**
 	 * 商品一覧画面へ遷移する.
@@ -37,13 +45,15 @@ public class ShowItemsController {
 	 * @return 商品一覧画面
 	 */
 	@GetMapping("")
-	public String showItemsList(Model model, Integer currentPage, Integer designatedPage) {
+	public String showItemsList(Model model, Integer currentPage) {
+		List<Category> bigCategoryList = showCategoryService.findAllBigCategory();
+		model.addAttribute("bigCategoryList", bigCategoryList);
+		
 		Integer maxPage = showItemsService.getItemsCount() / 30 + 1;
 		if(currentPage == null || currentPage <= 0) {
 			currentPage = 1;
 		}
 		Integer offsetPoint = (currentPage - 1) * 30;
-		System.out.println("showItemsController page : " + currentPage);
 		List<Items> itemList = showItemsService.showItemList(offsetPoint);
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("currentPage", currentPage);	
@@ -81,12 +91,10 @@ public class ShowItemsController {
 	 */
 	@GetMapping("/detail/{id}/{currentPage}")
 	public String showDetail(@PathVariable("id") Integer id, @PathVariable("currentPage") Integer currentPage, Model model) {
-		System.out.println("id :" + id);
-		System.out.println("curentPage :" + currentPage);
 		Items item = showItemDetailService.showItemDetail(id);
 		model.addAttribute("item", item);
 		model.addAttribute("currentPage", currentPage);
 		return "detail";
 	}
-
+	
 }
