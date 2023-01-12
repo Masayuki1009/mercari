@@ -61,43 +61,37 @@
 
 		<!-- 検索フォーム -->
 		<div id="forms">
-			<form action="" class="form-inline" role="form">
+			<form action="" th:action="@{/search}" th:object="${searchForm}" class="form-inline" role="form" method="POST">
+				<input type="hidden" name="currentPage" th:value="${currentPage}">
 				<div class="form-group">
-					<input type="input" class="form-control" id="name"
+					<input type="input" class="form-control" id="name" name="name"
 						placeholder="item name" />
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<select class="form-control">
-						<option>- parentCategory -</option>
-						<option>parentCategory1</option>
-						<option>parentCategory2</option>
-						<option>parentCategory3</option>
-						<option>parentCategory4</option>
-						<option>parentCategory5</option>
-					</select> <select class="form-control">
-						<option>- childCategory -</option>
-						<option>childCategory1</option>
-						<option>childCategory2</option>
-						<option>childCategory3</option>
-						<option>childCategory4</option>
-						<option>childCategory5</option>
-					</select> <select class="form-control">
-						<option>- grandChild -</option>
-						<option>grandChild1</option>
-						<option>grandChild2</option>
-						<option>grandChild3</option>
-						<option>grandChild4</option>
-						<option>grandChild5</option>
+					<select class="form-control" name="bigCategory" id="bigCategory">
+					    <option>- bigCategory -</option>
+					    <option
+					    th:each="category : ${bigCategoryList}"  
+                        th:text="${category.name}"
+            			th:value="${category.id}"
+            			th:id="${category.id}"
+					    >-- big category --</option>
 					</select>
+					 <select class="form-control" name="mediumCategory" id="mediumCategory">
+						  <option value="0">-- big categoryを選択してください --</option>
+					</select> <select class="form-control" name="category" id="smallCategory">
+						<option value="0">-- big categoryを選択して下さい --</option>
+					</select>
+					 <div class="text-danger" th:text="${categoryError}">error:may not be empty</div>
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" />
+					<input type="text" class="form-control" placeholder="brand" name="brand" />
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -132,6 +126,9 @@
 					<tr th:each="item : ${itemList}">
 						<td class="item-name">
 						<input type="hidden" name="currentPage" th:value="${currentPage}">
+						<div th:if="${currentPage >= 5}">
+						<div> 5ページ名以降!!</div>
+						</div>
 						<a th:href="@{/show/detail/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}" th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a>
 						</td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
@@ -170,5 +167,6 @@
 			</div>
 		</div>
 	</div>
+	 <script th:src="@{/js/changeSelectbox.js}"></script>
 </body>
 </html>
