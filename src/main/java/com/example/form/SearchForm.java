@@ -1,5 +1,11 @@
 package com.example.form;
 
+/**
+ * 商品一覧画面で、検索条件を格納するform.
+ * 
+ * @author shibatamasayuki
+ *
+ */
 public class SearchForm {
 	private String name;
 	private Integer category;

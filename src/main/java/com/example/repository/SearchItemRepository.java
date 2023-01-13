@@ -12,6 +12,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.Items;
 
+/**
+ * itemsテーブルの検索を行う際に使用するrepository.
+ * 
+ * @author shibatamasayuki
+ *
+ */
 @Repository
 public class SearchItemRepository {
 
@@ -20,6 +26,12 @@ public class SearchItemRepository {
 	
 	private static final RowMapper<Items> ITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(Items.class);
 	
+	/**
+	 * 検索結果に応じたitemの取得を行う.
+	 * 
+	 * @param sql sql
+	 * @return 検索結果に一致するitemリスト
+	 */
 	public List<Items> findAll(String sql) {
 		
 		List<Items> itemList = template.query(sql, ITEM_ROW_MAPPER);

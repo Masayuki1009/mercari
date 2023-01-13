@@ -104,8 +104,8 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a th:href="@{/show?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
-					<li class="next"><a th:href="@{/show?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
+					<li class="previous"><a th:href="@{/search/turnPage?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/search/turnPage?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -144,13 +144,13 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a th:href="@{/show?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
-					<li class="next"><a th:href="@{/show?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
+					<li class="previous"><a th:href="@{/search/turnPage?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/search/turnPage?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 			<!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form class="form-inline" th:action="@{/show/designatedPage}" method="POST">
+				<form class="form-inline" th:action="@{/search/designatedPage}" method="POST">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control" name="designatedPage"/>
