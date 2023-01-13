@@ -96,7 +96,6 @@ public class SearchItemController {
 	 */
 	@GetMapping("/turnPage")
 	public String turnPage(Model model, SearchForm searchItemForm, Integer currentPage) {	
-		System.out.println("turnPage");
 		List<Category> bigCategoryList = showCategoryService.findAllBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);	
 		Integer maxPage = showItemsService.getItemsCount() / 30 + 1;
