@@ -26,7 +26,7 @@ import com.example.service.ShowItemsService;
  *
  */
 @Controller
-@RequestMapping("/show")
+@RequestMapping("")
 public class ShowItemsController {
 
 	@Autowired
@@ -44,7 +44,7 @@ public class ShowItemsController {
 	 * @param model model
 	 * @return 商品一覧画面
 	 */
-	@GetMapping("")
+	@GetMapping("/")
 	public String showItemsList(Model model, Integer currentPage) {
 		List<Category> bigCategoryList = showCategoryService.findAllBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);

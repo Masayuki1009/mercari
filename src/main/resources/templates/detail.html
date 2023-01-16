@@ -37,16 +37,21 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" th:href="@{/show}">Rakus Items</a>
+			<a class="navbar-brand" th:href="@{/}">Rakus Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html">Logout&nbsp;<i
+					<li th:unless="${session.loginUser}"><a id="login" th:href="@{/login}">Login <i
+							class="fa fa-power-off"></i></a></li>
+				    <li th:if="${session.loginUser}"><a id="logout" th:href="@{/login/logout}">Logout <i
 							class="fa fa-power-off"></i></a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
-					<span id="loginName">user: userName</span>
+					<span id="loginName">user: </span>
+					<span th:if="${session.loginUser}">
+					<span id="loginName" th:text="${session.loginUser.username}"></span>
+					</span>
 				</p>
 			</div>
 		</div>
@@ -54,7 +59,7 @@
 
 	<!-- details -->
 	<div class="container">
-		<a type="button" class="btn btn-default" th:href="@{/show?currentPage=} + ${currentPage}"><i
+		<a type="button" class="btn btn-default" th:href="@{/?currentPage=} + ${currentPage}"><i
 			class="fa fa-reply"></i> back</a>
 		<h2>Details</h2>
 		<div id="details">

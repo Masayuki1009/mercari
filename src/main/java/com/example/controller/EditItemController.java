@@ -120,6 +120,6 @@ public class EditItemController {
 		edittedItem.setShipping(item.getShipping());
 		editItemService.editItem(edittedItem);
 
-		return "redirect:/show";
+		return "redirect:/";
 	}
 }

@@ -37,16 +37,21 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" th:href="@{/show}">Rakus Items</a>
+			<a class="navbar-brand" th:href="@{/}">Rakus Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html">Logout <i
+					<li th:unless="${session.loginUser}"><a id="login" th:href="@{/login}">Login <i
+							class="fa fa-power-off"></i></a></li>
+				    <li th:if="${session.loginUser}"><a id="logout" th:href="@{/login/logout}">Logout <i
 							class="fa fa-power-off"></i></a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
-					<span id="loginName">user: userName</span>
+					<span id="loginName">user: </span>
+					<span th:if="${session.loginUser}">
+					<span id="loginName" th:text="${session.loginUser.username}"></span>
+					</span>
 				</p>
 			</div>
 		</div>
@@ -104,8 +109,8 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a th:href="@{/show?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
-					<li class="next"><a th:href="@{/show?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
+					<li class="previous"><a th:href="@{/?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -127,7 +132,7 @@
 						<td class="item-name">
 						<input type="hidden" name="currentPage" th:value="${currentPage}">
 						
-						<a th:href="@{/show/detail/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}" th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a>
+						<a th:href="@{/detail/{id}/{currentPage}(id=${item.id}, currentPage=${currentPage})}" th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a>
 						</td>
 						<td class="item-price" th:text="${item.price}">52.0</td>
 						<td class="item-category" th:text="${item.category}"><a href="">Electronics</a> / <a
@@ -144,13 +149,13 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous"><a th:href="@{/show?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
-					<li class="next"><a th:href="@{/show?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
+					<li class="previous"><a th:href="@{/?currentPage=} + ${currentPage - 1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/?currentPage=} + ${currentPage + 1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 			<!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form class="form-inline" th:action="@{/show/designatedPage}" method="POST">
+				<form class="form-inline" th:action="@{/designatedPage}" method="POST">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control" name="designatedPage"/>
