@@ -19,13 +19,14 @@ public class LoginService {
 	@Autowired
 	UserRepository repository;
 
+	//Spring Security使用のため不要
 	/**
 	 * ログインユーザーの情報を取得.
 	 * 
 	 * @param user user
 	 * @return user
 	 */
-	public User login(User user) {
-		return repository.findByUserInfo(user);
-	}
+//	public User login(User user) {
+//		return repository.findByUserInfo(user);
+//	}
 }

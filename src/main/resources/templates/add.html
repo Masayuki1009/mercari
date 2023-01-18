@@ -19,7 +19,7 @@
 </head>
 <body>
   <!-- navbar -->
- <nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
@@ -34,13 +34,13 @@
 				<ul class="nav navbar-nav navbar-right">
 					<li th:unless="${session.loginUser}"><a id="login" th:href="@{/login}">Login <i
 							class="fa fa-power-off"></i></a></li>
-				    <li th:if="${session.loginUser}"><a id="logout" th:href="@{/login/logout}">Logout <i
+				    <li th:if="${session.loginUser}"><a id="logout" th:href="@{/logout}">Logout <i
 							class="fa fa-power-off"></i></a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
 					<span id="loginName">user: </span>
 					<span th:if="${session.loginUser}">
-					<span id="loginName" th:text="${session.loginUser.username}"></span>
+					<span id="loginName" th:text="${session.loginUser}"></span>
 					</span>
 				</p>
 			</div>

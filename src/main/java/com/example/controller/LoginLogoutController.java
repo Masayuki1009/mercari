@@ -37,6 +37,7 @@ public class LoginLogoutController {
 		return "login";
 	}
 	
+	//Spring Securityを使用しているため、不要
 	/**
 	 * ログイン処理を行い、商品一覧画面に遷移.
 	 * 
@@ -46,32 +47,32 @@ public class LoginLogoutController {
 	 * @param response response
 	 * @return 商品一覧画面
 	 */
-	@PostMapping("/login")
-	public String login(@Validated UserForm form, BindingResult result, Model model, HttpServletResponse response) {
-		if(result.hasErrors()) {
-			return index(form, model);
-		}
-		User user = new User();
-		BeanUtils.copyProperties(form, user);
-		System.out.println("user : " + user);
-		User loginUser = loginService.login(user);
-		if(loginUser == null) {
-			model.addAttribute("loginError", "メールアドレス、またはパスワードが間違っています");
-			return "/login";
-		}
-		session.setAttribute("loginUser", loginUser);
-		return "redirect:/";
-	}
+//	@PostMapping("/login")
+//	public String login(@Validated UserForm form, BindingResult result, Model model, HttpServletResponse response) {
+//		if(result.hasErrors()) {
+//			return index(form, model);
+//		}
+//		User user = new User();
+//		BeanUtils.copyProperties(form, user);
+//		System.out.println("user : " + user);
+//		User loginUser = loginService.login(user);
+//		if(loginUser == null) {
+//			model.addAttribute("loginError", "メールアドレス、またはパスワードが間違っています");
+//			return "/login";
+//		}
+//		session.setAttribute("loginUser", loginUser);
+//		return "redirect:/";
+//	}
 	
 	/**
 	 * ログアウト処理.
 	 * 
 	 * @return ログイン画面
 	 */
-	@GetMapping("/logout")
-	public String logout() {
-		session.invalidate();
-		return "redirect:/";
-	}
+//	@GetMapping("/logout")
+//	public String logout() {
+////		session.invalidate();
+//		return "login";
+//	}
 	
 }
