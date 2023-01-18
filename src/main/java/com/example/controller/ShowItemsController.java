@@ -5,6 +5,8 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,10 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.domain.Category;
 import com.example.domain.Items;
-import com.example.form.SearchForm;
 import com.example.service.ShowCategoryService;
 import com.example.service.ShowItemDetailService;
 import com.example.service.ShowItemsService;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * itemテーブルを操作するController.
@@ -37,6 +40,9 @@ public class ShowItemsController {
 	
 	@Autowired
 	ShowCategoryService showCategoryService;
+	
+	@Autowired
+	private HttpSession session;
 
 	/**
 	 * 商品一覧画面へ遷移する.
@@ -46,6 +52,15 @@ public class ShowItemsController {
 	 */
 	@GetMapping("/")
 	public String showItemsList(Model model, Integer currentPage) {
+		//認証情報の取得
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		//ログインしたユーザーのusernameを取得
+		String loginUser = auth.getName();
+		//ゲストユーザー(auth.getName() = anonymousUser)でない場合のみセッション管理を行う.
+		if(loginUser != "anonymousUser") {
+			session.setAttribute("loginUser", loginUser);
+		}
+		
 		List<Category> bigCategoryList = showCategoryService.findAllBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 		
@@ -58,6 +73,7 @@ public class ShowItemsController {
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("currentPage", currentPage);	
 		model.addAttribute("maxPage", maxPage);	
+		
 		return "list";
 	}
 	

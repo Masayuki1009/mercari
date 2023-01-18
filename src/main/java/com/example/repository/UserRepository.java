@@ -37,23 +37,37 @@ public class UserRepository {
 		template.update(sql, param);
 	}
 
+	//Spring Security使用のため不要
 	/**
 	 * 受け取ったusernameとpasswordの情報と一致するuserを取得する.
 	 * 
 	 * @param user user
 	 * @return user情報
 	 */
-	public User findByUserInfo(User user) {
-		try {
-			String sql = "SELECT id, name AS username, password, authority FROM users WHERE name = :name AND password = :password;";
-			SqlParameterSource param = new MapSqlParameterSource().addValue("name", user.getUsername())
-					.addValue("password", user.getPassword());
-			User loginUser = template.queryForObject(sql, param, USER_ROW_MAPPER);
-			System.out.println("repository loginUser : " + loginUser);
-			return loginUser;
-		} catch (EmptyResultDataAccessException e) {
-			return null;
-		}
+//	public User findByUserInfo(User user) {
+//		try {
+//			String sql = "SELECT id, name AS username, password, authority FROM users WHERE name = :name AND password = :password;";
+//			SqlParameterSource param = new MapSqlParameterSource().addValue("name", user.getUsername())
+//					.addValue("password", user.getPassword());
+//			User loginUser = template.queryForObject(sql, param, USER_ROW_MAPPER);
+//			System.out.println("repository loginUser : " + loginUser);
+//			return loginUser;
+//		} catch (EmptyResultDataAccessException e) {
+//			return null;
+//		}
+//	}
+	
+	/**
+	 * ユーザー名で検索を行います.
+	 * 
+	 * @param username ユーザー名
+	 * @return ユーザー情報
+	 */
+	public User findByUsername(String username) {
+		String sql = "SELECT id, name AS username, password, authority FROM users WHERE name = :username;";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("username", username);
+		User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
+		return user;
 	}
 
 }

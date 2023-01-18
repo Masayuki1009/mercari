@@ -1,6 +1,7 @@
 package com.example.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +17,8 @@ import com.example.repository.UserRepository;
 @Transactional
 @Service
 public class RegisterService {
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Autowired
 	UserRepository repository;
@@ -26,6 +29,8 @@ public class RegisterService {
 	 * @param user user
 	 */
 	public void register(User user) {
+		//passwordのhash化
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		repository.insert(user);
 	}
 }

@@ -29,16 +29,20 @@
       <div class="panel-heading">Login</div>
       <div class="panel-body">
         <p class="text-danger" th:text="${loginError}">error:failed to login</p>
-        <form action="#" th:action="@{/login/login}" th:object="${userForm}" method="POST">
+        <form action="#" th:action="@{/signin}" th:object="${userForm}" method="POST">
+         <div th:if="${param.error}">
+    <div th:if="${session[SPRING_SECURITY_LAST_EXCEPTION] != null}">
+        <p class="text-danger">error:failed to login</p>
+    </div>
+</div>
+       
           <div class="form-group">
             <label for="mail">username</label>
-            <input type="text" class="form-control" id="mail" name="username" th:field="*{username}">
-              <div th:errors="*{username}" style="color:red" class="error-messages">名前を入力して下さい</div>
+            <input type="text" class="form-control" id="mail" name="username">
           </div>
           <div class="form-group">
             <label for="password">password</label>
-            <input type="password" class="form-control" id="password" name="password" th:field="*{password}">
-             <div th:errors="*{password}" style="color:red" class="error-messages">Passwordを入力して下さい</div>
+            <input type="password" class="form-control" id="password" name="password">
           </div>
           <button type="submit" class="btn btn-default">Login</button>
         </form>
